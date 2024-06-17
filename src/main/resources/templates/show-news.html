@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+			xmlns:th="http://www.thymeleaf.org"
+			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<hr th:replace="~{f::head}">
+<body>
+
+<hr th:replace="~{f::header}">
+<hr th:replace="~{f::categories(${categories})}">
+
+<article th:object="${newsItem}">
+	<p>
+		<mark th:text="${#temporals.format(newsItem.publishDate, 'MM-dd-YY')}"></mark>
+	</p>
+	
+	<nav sec:authorize="hasAuthority('Administrator')">
+		<a class="button" style="background: var(--marked);" th:href="|/news/edit/*{id}|">Edit</a>
+		<a class="button" style="background: var(--code);" th:href="|/news/destroy/*{id}|">Delete</a>
+	</nav>
+	
+	<h3 th:text="*{title}"></h3>
+	<p th:text="*{content}"></p>
+	<a class="button" href="/news">Go back</a>
+</article>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+			xmlns:th="http://www.thymeleaf.org"
+>
+<hr th:replace="~{f::head}">
+<body>
+
+<hr th:replace="~{f::header}">
+<hr th:replace="~{f::categories(${categories})}">
+
+<h3>Edit news <span th:text="${news.title}"/></h3>
+
+<form th:action="@{/news/store}" method="post" th:object="${news}">
+	<input th:field="*{id}" type="hidden">
+	<fieldset>
+		<p>
+			<label for="title">Title</label>
+			<input th:field="*{title}" type="text" id="title">
+			<samp th:errors="*{title}"></samp>
+		</p>
+		<p>
+			<label for="content">Content</label>
+			<textarea rows="10" th:field="*{content}" id="content"></textarea>
+			<samp th:errors="*{content}"></samp>
+		</p>
+		<p>
+			<label for="category">Category</label>
+			<input th:field="*{category}" type="text" id="category">
+			<samp th:errors="*{category}"></samp>
+		</p>
+		
+		<button type="submit">Save</button>
+	</fieldset>
+</form>
+
+</body>
+</html>

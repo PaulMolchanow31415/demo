@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<hr th:replace="~{f::head}">
+
+<body>
+
+<hr th:replace="~{f::header}">
+<hr th:replace="~{f::categories(${categories})}">
+
+<h3>My News</h3>
+
+<article th:each="n : ${news}" th:object="${n}">
+	<mark th:text="*{category.name}"></mark>
+	<p th:text="${#temporals.format(n.publishDate, 'MM-dd-YY')}"></p>
+	<p><b th:text="*{title}"></b></p>
+	<a class="button" th:href="|/news/show/*{id}|">Visit</a>
+	<nav>
+		<a class="button" style="background: var(--marked);" th:href="|/news/edit/*{id}|">Edit</a>
+		<a class="button" style="background: var(--code);" th:href="|/news/destroy/*{id}|">Delete</a>
+	</nav>
+</article>
+
+</body>
+</html>

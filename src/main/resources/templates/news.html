@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+			xmlns:th="http://www.thymeleaf.org"
+>
+<hr th:replace="~{f::head}">
+<body>
+
+<hr th:replace="~{f::header}">
+<hr th:replace="~{f::categories(${categories})}">
+
+<h1>Daily News</h1>
+
+<article th:each="n : ${news}" th:object="${n}">
+	<mark th:text="*{category.name}"></mark>
+	<p><span th:text="*{author.username}" /></p>
+	<p th:text="${#temporals.format(n.publishDate, 'MM-dd-YY')}"></p>
+	<p><b th:text="*{title}"></b></p>
+	<a class="button" th:href="|/news/show/*{id}|">Visit</a>
+</article>
+
+</body>
+</html>

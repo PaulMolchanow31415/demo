@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+			xmlns:th="http://www.thymeleaf.org"
+			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<title>News Platform</title>
+	
+	<style>
+		input {
+			width: 100%;
+		}
+		
+		samp {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+
+<header th:fragment="header">
+	<h3>News Platform</h3>
+	
+	<nav>
+		<ul>
+			<li><a href="/news">Home</a></li>
+			
+			<th:block sec:authorize="isAnonymous()">
+				<li><a href="/login">Login</a></li>
+				<li><a href="/registration">Registration</a></li>
+			</th:block>
+			
+			<th:block sec:authorize="isAuthenticated()">
+				<li><a href="/logout">Logout</a></li>
+				<li><a href="/news/create">Create a news</a></li>
+				<li><a href="/news/my">My news</a></li>
+			</th:block>
+		</ul>
+	</nav>
+</header>
+
+
+<nav th:fragment="categories(list)" th:unless="${#lists.isEmpty(list)}">
+	<ul>
+		<li><a href="/news">all the news</a></li>
+		
+		<li th:each="c : ${list}">
+			<a th:href="|/news/${c}|" th:text="${c}"></a>
+		</li>
+	</ul>
+</nav>
+
+</body>
+</html>
